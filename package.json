@@ -3,13 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.24.0",
     "bootstrap": "^4.1.1",
     "font-awesome": "^4.7.0",
+    "js-cookie": "^3.0.1",
+    "node": "^17.2.0",
     "prop-types": "^15.6.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-fontawesome": "^1.7.1",
+    "react-router-dom": "^6.1.1",
     "react-scripts": "^1.1.4",
+    "react-token-auth": "^2.3.8",
     "reactstrap": "^6.1.0"
   },
   "scripts": {
