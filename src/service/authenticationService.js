@@ -1,5 +1,5 @@
 class AuthenticationRequest {
-    sendAuthRegister = (registerAccount) => {
+    /*sendAuthRegister = (registerAccount) => {
         console.log(registerAccount);
         return fetch("https://localhost:44308/api/AuthManagement/Register", {
                 method: 'post',
@@ -15,7 +15,7 @@ class AuthenticationRequest {
                 .then(body => {
                 console.log(body);
                 });
-    };
+    };*/
 
     sendAuthLogin = (loginAccount) => {
         console.log(loginAccount);
@@ -29,6 +29,7 @@ class AuthenticationRequest {
                 .then(response => response.json())
                 .then(body => {
                 console.log(body);
+                return body.token;
                 });
     };
     /*sendAuthLogout = () => {

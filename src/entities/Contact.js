@@ -5,6 +5,9 @@ class Contact {
         //this.number = contact.Number;
         //this.email = contact.email;
         this.id = contact.id;
+
+        //contact PropTypes
+        this.value = contact.value;
     }
 }
 

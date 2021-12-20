@@ -10,19 +10,24 @@ const PhoneContactsList = (props) => {
 
     const filterPhoneContacts = props.allContacts.filter(
         (contact) => {
-            let ContactData = contact.lastName.toLowerCase() + ' ' + contact.firstName.toLowerCase();
+            let ContactData = contact.lastName + ' ' + contact.firstName + ' ' + contact.value;
             return ContactData.indexOf(props.search.toLowerCase()) !== -1;
         }
     );
+    console.log("filter contacts", filterPhoneContacts);
 
     let results = filterPhoneContacts.map((contact, i) => {
         return <PhoneContact 
+                //contact value
+                value={contact.value}
+
                 name={contact.firstName} 
                 surname={contact.lastName} 
                 key={contact.id}
                 removeContact={() => props.removeContact(contact.id, i)} />
     });
 
+    console.log("result",results);
     return (
         <ListGroup>
             {results}

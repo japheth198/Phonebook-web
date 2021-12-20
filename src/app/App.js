@@ -4,23 +4,32 @@ import Search from './search_contacts/Search';
 import PhoneContactsList from './phone_contacts/PhoneContactsList';
 import { dataService } from '../service/dataService';
 import { authenticationService } from '../service/authenticationService';
+import Select from 'react-select'
 
 
 
 
 class App extends Component {
+
+  types = [
+    { label: 'Phone', value: 'Phone' },
+    { label: 'Email', value: 'Email' },
+  ];
+
   state= {
     searchContact: "",
     modal: false,
     modalLogin: false,
-    modalRegister: false,
+    types: [],
+    //modalRegister: false,
     errorMessage: "",
     addContactName: "",
     addContactSurname: "",
+    addContactValue: "",
     addLoginEmail: "japhethjuur19@gmail.com",
     addLoginPassword: "Saimon-32",
-    addRegisterEmail: "",
-    addRegisterPassword: "",
+    //addRegisterEmail: "",
+    //addRegisterPassword: "",
     token: "",
     contacts: [],
     account: ""
@@ -52,13 +61,6 @@ class App extends Component {
     });
   }
 
-  toggle3 = () => {
-    this.setState({
-      modalRegister: !this.state.modalRegister,
-      errorMessage: ""
-    });
-  }
-
   
   // Add new contact to the list
 
@@ -78,7 +80,7 @@ class App extends Component {
 
 
     // Add register email
-    addNewRegisterEmail = n => {
+    /*addNewRegisterEmail = n => {
       this.setState({ 
         addRegisterEmail: n.target.value,
         errorMessage: "" });
@@ -89,7 +91,7 @@ class App extends Component {
       this.setState({ 
         addRegisterPassword: n.target.value,
         errorMessage: "" });
-    };
+    };*/
 
     // Add login email
     addNewLoginEmail = e => {
@@ -102,6 +104,13 @@ class App extends Component {
     addNewLoginPassword = e => {
       this.setState({ 
         addLoginPassword: e.target.value,
+        errorMessage: "" });
+    };
+
+    // Add contact value
+    addNewContactValue = e => {
+      this.setState({ 
+        addContactValue: e.target.value,
         errorMessage: "" });
     };
 
@@ -118,7 +127,7 @@ class App extends Component {
       this.state.contacts.push({
         firstName: this.state.addContactName,
         lastName: this.state.addContactSurname,
-        id: Math.round(Math.random() * 4000 + 1234)
+        value: this.state.addContactValue,
       });
       this.setState(this.state);
 
@@ -130,7 +139,7 @@ class App extends Component {
 
   };
 
-  SubmitNewAccount = e => {
+  /*SubmitNewAccount = e => {
     //e.preventDefault();
     if(this.state.addRegisterEmail === "" || this.state.addRegisterPassword === "") {
       this.setState({
@@ -144,7 +153,7 @@ class App extends Component {
       })
     }
 
-  };
+  };*/
 
   SubmitOldAccount = e => {
     //e.preventDefault();
@@ -164,24 +173,24 @@ class App extends Component {
 
   // Send added contact to server
   submitAddedContact = (c) => {
-   let result = dataService.sendNewContact(c, this.state.token);
+   let result = dataService.sendNewContact(c /*this.state.token*/);
   console.log(result);
   };
 
   // Send added auth to server
-  submitAddedNewAccount = (c) => {
+  /*submitAddedNewAccount = (c) => {
     let result = authenticationService.sendAuthRegister(c);
    console.log(result);
-   };
+   };*/
 
 
   // Send added auth to server
   submitAddedLogAccount = (c) => {
     let result = authenticationService.sendAuthLogin(c);
     this.setState({
-      token: 'Bearer ' + result
+      token: result
     });
-   console.log(result);
+   console.log("Send out login",result);
    };
 
   // Remove contact from the list
@@ -200,9 +209,9 @@ class App extends Component {
   updateSearch = e => {
     this.setState({searchContact: e.target.value})
   };
+
   render() {
     return (
-      
       <Container className='main-container'>
         <Row >
           <Col md={{ size: 8, offset: 2 }}>
@@ -222,6 +231,8 @@ class App extends Component {
                         <FormGroup>
                           <Input type="text" className='contact-data' value={this.addContactName} onChange={this.addNewContactName} placeholder="First name" autoComplete="none" />
                           <Input type="text" className='contact-data' value={this.addContactSurname} onChange={this.addNewContactSurname} placeholder="Last name" autoComplete="none" />
+                          <Select options={types} />
+                          <Input type="text" className='contact-data' value={this.addContactValue} onChange={this.addNewContactValue} placeholder="Contact value" autoComplete="none" />
                         </FormGroup>
                     </Form>
                       <div>{this.state.errorMessage}</div>
@@ -270,20 +281,3 @@ class App extends Component {
   }
 }
 export default App;
-
-/*<Modal isOpen={this.state.modalLogin} toggle={this.toggle3} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle3}>New account</ModalHeader>
-                    <ModalBody>
-                    <Form method='post'>
-                        <FormGroup>
-                          <Input type="text" className='auth-data' value={this.addRegisterEmail} onChange={this.addNewRegisterEmail} placeholder="Email address"/>
-                          <Input type="text" className='auth-data' value={this.addRegisterPassword} onChange={this.addNewRegisterPassword} placeholder="Password"/>
-                        </FormGroup>
-                    </Form>
-                      <div>{this.state.errorMessage}</div>
-                    </ModalBody>
-                    <ModalFooter>
-                      <Button color="primary" onClick={this.SubmitNewAccount}>Register</Button>{' '}
-                      <Button color="primary" onClick={this.toggle2}>Logout</Button>
-                    </ModalFooter>
-                  </Modal>ˇ*/

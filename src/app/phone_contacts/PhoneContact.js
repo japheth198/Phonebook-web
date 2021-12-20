@@ -11,6 +11,7 @@ const PhoneContact = (props) => {
         <ListGroupItem>
             <div className='contact-name-surname'>
                 <h4>{props.name} {props.surname}</h4>
+                <p>{props.value}</p>
             </div>
             <Button color="danger" className='remove-contact' onClick={props.removeContact}><i className="fa fa-trash" aria-hidden="true"></i></Button>{' '}
         </ListGroupItem>
@@ -18,8 +19,10 @@ const PhoneContact = (props) => {
 };
 
 PhoneContact.propTypes = {
-    name: PropTypes.string.isRequired,
-    surname: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    surname: PropTypes.string,
+    
+    value: PropTypes.string,
     removeContact: PropTypes.func.isRequired
 };
 
